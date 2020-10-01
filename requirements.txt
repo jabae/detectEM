@@ -1,0 +1,7 @@
+numpy
+scipy
+h5py
+torch
+torchvision
+tensorboardX
+cloud-volume
