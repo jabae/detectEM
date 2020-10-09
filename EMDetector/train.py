@@ -140,14 +140,14 @@ if __name__ == "__main__":
     TRAIN = Dataset(os.path.expanduser(data_dir),
             {
                 "image": opt.train_image,
-                "mask": opt.train_mask
+                "mask": opt.train_label
             }
     )
 
     VAL = Dataset(os.path.expanduser(data_dir),
             {
                 "image": opt.val_image,
-                "mask": opt.val_mask
+                "mask": opt.val_label
             }
     )
 
