@@ -16,7 +16,7 @@ from train.utils import *
 
 from dataset import *
 
-from nets.fold_net_norm import *
+from nets.detect_net import *
 
 
 def train(opt):
@@ -125,14 +125,15 @@ if __name__ == "__main__":
         help="Train path")
     parser.add_argument("--train_image", required=True, type=str,
         help="Train image data in h5")
-    parser.add_argument("--train_mask", required=True, type=str,
+    parser.add_argument("--train_label", required=True, type=str,
         help="Train mask data in h5")
     parser.add_argument("--val_image", required=True, type=str,
         help="Validation image data in h5")
-    parser.add_argument("--val_mask", required=True, type=str,
+    parser.add_argument("--val_label", required=True, type=str,
         help="Validation mask data in h5")
     parser.add_argument("--chkpt_num", required=True, type=int,
         help="Model checkpoint number to start training")
+    parser.add_argument("")
 
     opt = parser.parse_args()
 
@@ -153,15 +154,17 @@ if __name__ == "__main__":
 
     opt.log_dir = opt.exp_dir + 'log/'    
     opt.model_dir = opt.exp_dir + 'model/'
-    opt.exp_name = 'Crack detector'
+    opt.exp_name = 'EM detector'
 
     opt.train_data = TRAIN
     opt.val_data = VAL
     opt.mip = 0
     opt.n_train = opt.train_data.image.shape[-1]
 
-    opt.batch_size = 8
-    opt.num_workers = 8
+    opt.gpu_ids = ["0","1","2","3","4","5","6","7"]
+
+    opt.batch_size = len(opt.gpu_ids)
+    opt.num_workers = len(opt.gpu_ids)
 
     opt.net = UNet()
     
@@ -182,8 +185,6 @@ if __name__ == "__main__":
     opt.pretrain = None
 
     opt.lr = 0.0005
-
-    opt.gpu_ids = ["0","1","2","3","4","5","6","7"]
 
     # GPUs
     os.environ["CUDA_VISIBLE_DEVICES"] = ','.join(opt.gpu_ids)

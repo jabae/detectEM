@@ -15,7 +15,7 @@ from dataset import *
 from test.model import Model
 from test.utils import *
 
-from nets.fold_net_norm import *
+from nets.detect_net import *
 
 
 def fold_detector(opt):
@@ -73,7 +73,7 @@ if __name__ == "__main__":
 
 	opt.model_dir = opt.exp_dir +'model/'
 	opt.fwd_dir = opt.exp_dir + 'forward/'
-	opt.exp_name = 'Fold detector inference'
+	opt.exp_name = 'EM detector inference'
 
 	opt.test_data = TEST
 	opt.mip = 0
