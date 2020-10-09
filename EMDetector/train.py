@@ -133,7 +133,6 @@ if __name__ == "__main__":
         help="Validation mask data in h5")
     parser.add_argument("--chkpt_num", required=True, type=int,
         help="Model checkpoint number to start training")
-    parser.add_argument("")
 
     opt = parser.parse_args()
 
