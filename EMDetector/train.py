@@ -165,7 +165,7 @@ if __name__ == "__main__":
 
     opt.net = UNet()
     
-    opt.max_epoch = 500
+    opt.max_epoch = 1000
     opt.chkpt_intv = 2000
     opt.avgs_intv = 100 
     opt.imgs_intv = 500
