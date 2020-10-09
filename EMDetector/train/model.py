@@ -40,8 +40,11 @@ class Model(nn.Module):
         for k in self.out_spec:
             
             valid = (sample[k]!=0)
-
-            loss = F.binary_cross_entropy_with_logits(input=preds[k][valid], target=sample[k][valid])
+            if torch.sum(valid)==0:
+                loss = F.binary_cross_entropy_with_logits(input=preds[k], target=sample[k])
+            else:
+                loss = F.binary_cross_entropy_with_logits(input=preds[k][valid], target=sample[k][valid])
+            
             losses[k] = loss.unsqueeze(0)
             
         return losses
