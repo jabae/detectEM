@@ -40,6 +40,10 @@ class Augmentor:
     """
     params = self.params
 
+    # Dark line
+
+    if params['darkline']:
+      sample = darkline_augment(sample)
     # Flip
     if params['flip']:
       sample = flip_augment(sample)
@@ -55,10 +59,7 @@ class Augmentor:
     # Black padding on edge
     if params['blackpad']:
       sample = blackpad_augment(sample)
-
-    # Dark line
-    if params['darkline']:
-      sample = darkline_augment(sample)
+    
 
 
     # Return
