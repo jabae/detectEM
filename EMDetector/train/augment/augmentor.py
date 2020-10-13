@@ -4,6 +4,8 @@ import numpy as np
 from .flip import flip_augment
 from .rotate90 import rotate90_augment
 from .contrast import contrast_augment
+from .blackpad import blackpad_augment
+from .darkline import darkline_augment
 
 
 class Augmentor:
@@ -12,9 +14,7 @@ class Augmentor:
     self._init_params()
 
   def _init_params(self):
-    augs = ['blur', 'box', 'circle', 'elastic_warp', 'flip', 'grey',
-            'misalign_slip', 'misalign_translation', 'missing_section',
-            'noise', 'rotate', 'rotate90', 'rescale', 'sin']
+    augs = ['flip', 'rotate90', 'contrast', 'blackpad', 'darkline']
     for aug in augs:
       if aug not in self.params.keys():
         self.params[aug] = False
@@ -51,6 +51,15 @@ class Augmentor:
     # Contrast change
     if params['contrast']:
       sample = contrast_augment(sample)
+
+    # Black padding on edge
+    if params['blackpad']:
+      sample = blackpad_augment(sample)
+
+    # Dark line
+    if params['darkline']:
+      sample = darkline_augment(sample)
+
 
     # Return
     return sample
