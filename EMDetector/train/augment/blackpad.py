@@ -28,7 +28,7 @@ def blackpad_augment(sample):
 
 def blackpad(img, d=0, n=100):
 
-  img_pad = torch.zeros(img.shape)
+  img_pad = np.zeros(img.shape, dtype="float32")
   if d == 0:
     img_pad[:,n:,:] = img[:,:-n,:]
 
