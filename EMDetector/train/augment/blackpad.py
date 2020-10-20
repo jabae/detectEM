@@ -1,4 +1,5 @@
 import numpy as np
+import torch
 
 
 def blackpad_augment(sample):
@@ -7,8 +8,8 @@ def blackpad_augment(sample):
   Args:
     sample: Dictionary of (np array: <ch,z,x,y>) image and mask
   """
-
-  n_pad = int(sample["image"].shape[1]*0.4)
+  w = sample["image"].shape[1]
+  n_pad = np.random.choice(np.arange(int(w*0.4),int(w*0.9),10)) 
   
   if np.random.rand() < 0.25:
 
@@ -28,7 +29,7 @@ def blackpad_augment(sample):
 
 def blackpad(img, d=0, n=100):
 
-  img_pad = torch.zeros(img.shape)
+  img_pad = np.zeros(img.shape,dtype="float32")
   if d == 0:
     img_pad[:,n:,:] = img[:,:-n,:]
 

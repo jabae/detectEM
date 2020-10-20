@@ -39,7 +39,7 @@ class Model(nn.Module):
         ## Discrim
         for k in self.out_spec:
             
-            loss = F.binary_cross_entropy_with_logits(input=preds[k], target=sample[k])
+            loss = F.binary_cross_entropy_with_logits(input=preds[k][0,0,32:-32,32:-32], target=sample[k][0,0,32:-32,32:-32])
             losses[k] = loss.unsqueeze(0)
             
         return losses
