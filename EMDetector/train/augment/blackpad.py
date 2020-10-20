@@ -29,7 +29,11 @@ def blackpad_augment(sample):
 
 def blackpad(img, d=0, n=100):
 
+<<<<<<< HEAD
   img_pad = np.zeros(img.shape,dtype="float32")
+=======
+  img_pad = np.zeros(img.shape, dtype="float32")
+>>>>>>> a1191efd7601c69b559ad7af2e3d76aaf1ebc22e
   if d == 0:
     img_pad[:,n:,:] = img[:,:-n,:]
 

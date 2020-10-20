@@ -11,7 +11,7 @@ def darkline_augment(sample):
 	l = sample["image"].shape[1]
 	w = np.random.randint(10,20)
 
-	if np.random.rand() < 0.1:
+	if np.random.uniform() < 0.2:
 
 		r = np.random.rand()
 		loc = np.random.randint(w+5,l-(w+5))
