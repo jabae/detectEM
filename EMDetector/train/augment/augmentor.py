@@ -6,6 +6,7 @@ from .rotate90 import rotate90_augment
 from .contrast import contrast_augment
 from .blackpad import blackpad_augment
 from .darkline import darkline_augment
+from .block import block_augment
 
 
 class Augmentor:
@@ -14,7 +15,7 @@ class Augmentor:
     self._init_params()
 
   def _init_params(self):
-    augs = ['flip', 'rotate90', 'contrast', 'blackpad', 'darkline']
+    augs = ['flip', 'rotate90', 'contrast', 'blackpad', 'darkline', 'block']
     for aug in augs:
       if aug not in self.params.keys():
         self.params[aug] = False
@@ -41,9 +42,9 @@ class Augmentor:
     params = self.params
 
     # Dark line
-
     if params['darkline']:
       sample = darkline_augment(sample)
+
     # Flip
     if params['flip']:
       sample = flip_augment(sample)
@@ -59,7 +60,10 @@ class Augmentor:
     # Black padding on edge
     if params['blackpad']:
       sample = blackpad_augment(sample)
-    
+
+    # Block brightness change
+    if params['block']:
+      sample = block_augment(sample)
 
 
     # Return

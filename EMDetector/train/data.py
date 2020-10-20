@@ -77,7 +77,7 @@ class Data(object):
 
     def build(self, data, aug, opt, is_train):
 
-        aug_params = {'flip': False, 'rotate90': False, 'contrast': False, 'blackpad': False, 'darkline': False}
+        aug_params = {'flip': False, 'rotate90': False, 'contrast': False, 'blackpad': False, 'darkline': False, 'block': False}
         for k in aug:
             aug_params[k] = True
 
