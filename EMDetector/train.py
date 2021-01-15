@@ -160,14 +160,14 @@ if __name__ == "__main__":
     opt.mip = 0
     opt.n_train = opt.train_data.image.shape[-1]
 
-    opt.gpu_ids = ["0","1","2","3","4","5","6","7"]
+    opt.gpu_ids = ["0","1","2","3"]
 
     opt.batch_size = len(opt.gpu_ids)
     opt.num_workers = len(opt.gpu_ids)
 
     opt.net = UNet()
     
-    opt.max_epoch = 1000
+    opt.max_epoch = 3000
     opt.chkpt_intv = 2000
     opt.avgs_intv = 100 
     opt.imgs_intv = 500
@@ -179,9 +179,9 @@ if __name__ == "__main__":
 
     opt.in_spec = ['image']
     opt.out_spec = ['mask']
-    opt.train_augment = ['flip','rotate90','contrast']
+    opt.train_augment = ['flip','rotate90','contrast','blackpad','block']
     opt.val_augment = []
-    opt.pretrain = None
+    opt.pretrain = "/home/jabae/research/FoldDetection/model108000.chkpt"
 
     opt.lr = 0.0005
 
