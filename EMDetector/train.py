@@ -120,6 +120,7 @@ def eval_loop(iter_num, model, data_loader, opt, logger):
 
 if __name__ == "__main__":
 
+		# Arguments
     parser = argparse.ArgumentParser()
     parser.add_argument("--exp_dir", required=True, type=str,
         help="Train path")
@@ -133,6 +134,11 @@ if __name__ == "__main__":
         help="Validation mask data in h5")
     parser.add_argument("--chkpt_num", required=True, type=int,
         help="Model checkpoint number to start training")
+    parser.add_argment("--pretrain", required=False, type=str, default=None,
+    		help="Pretrained weights (if any)")
+    parser.add_argument("--max_epoch", required=False, type=int, default=2000,
+    		help="Number of epochs")
+
 
     opt = parser.parse_args()
 
@@ -167,7 +173,7 @@ if __name__ == "__main__":
 
     opt.net = UNet()
     
-    opt.max_epoch = 3000
+    opt.max_epoch = opt.max_epoch
     opt.chkpt_intv = 2000
     opt.avgs_intv = 100 
     opt.imgs_intv = 500
@@ -181,7 +187,7 @@ if __name__ == "__main__":
     opt.out_spec = ['mask']
     opt.train_augment = ['flip','rotate90','contrast','blackpad','block']
     opt.val_augment = []
-    opt.pretrain = "/home/jabae/research/FoldDetection/model108000.chkpt"
+    opt.pretrain = opt.pretrain
 
     opt.lr = 0.0005
 
