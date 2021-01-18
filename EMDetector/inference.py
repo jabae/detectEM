@@ -18,7 +18,7 @@ from test.utils import *
 from nets.detect_net import *
 
 
-def fold_detector(opt):
+def em_detector(opt):
 
 	# Output
 	fold_out = np.zeros(opt.patch_size + (opt.n_test,), dtype='uint8')
@@ -77,7 +77,7 @@ if __name__ == "__main__":
 
 	opt.test_data = TEST
 	opt.mip = 0
-	opt.patch_size = (320,320) 
+	opt.patch_size = opt.test_data.image.shape[1:3]
 	opt.n_test = opt.test_data.image.shape[-1]	
 
 	opt.net = UNet()
@@ -95,4 +95,4 @@ if __name__ == "__main__":
 
 	# Run inference.
 	print("Running inference: {}".format(opt.exp_name))
-	fold_detector(opt)
+	em_detector(opt)
