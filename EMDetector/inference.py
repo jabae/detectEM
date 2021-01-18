@@ -77,7 +77,7 @@ if __name__ == "__main__":
 
 	opt.test_data = TEST
 	opt.mip = 0
-	opt.patch_size = (256,256) 
+	opt.patch_size = (320,320) 
 	opt.n_test = opt.test_data.image.shape[-1]	
 
 	opt.net = UNet()
