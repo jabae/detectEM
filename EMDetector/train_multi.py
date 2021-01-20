@@ -132,7 +132,7 @@ if __name__ == "__main__":
     		help="Train mask data in h5")
     parser.add_argument("--val_image", required=True, type=str,
         help="Validation image data in h5")
-    parser.add_argument("--val_label", required=True, type=str,
+    parser.add_argument("--val_label1", required=True, type=str,
         help="Validation mask data in h5")
     parser.add_argument("--val_label2", required=True, type=str,
     		help="Train mask data in h5")
