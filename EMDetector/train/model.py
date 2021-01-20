@@ -26,8 +26,8 @@ class Model(nn.Module):
         mask = self.model(image)
         
         preds = {}
-        preds["mask1"] = mask[:,0,:,:]
-        preds["mask2"] = mask[:,1,:,:]
+        preds["mask1"] = mask[:,0,:,:].reshape((1,1,)+mask.shape[2:])
+        preds["mask2"] = mask[:,1,:,:].reshape((1,1,)+mask.shape[2:])
 
         # Loss evaluation
         losses = self.eval_loss(preds, sample)
