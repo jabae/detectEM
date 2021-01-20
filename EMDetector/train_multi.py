@@ -53,7 +53,7 @@ def train(opt):
         
                 # Load Training samples.
                 sample = train_loader()
-
+                
                 # Optimizer step
                 optimizer.zero_grad()
                 losses, preds = forward(model, sample, opt)
@@ -171,7 +171,7 @@ if __name__ == "__main__":
     opt.val_data = VAL
     opt.mip = 0
     opt.n_train = opt.train_data.image.shape[-1]
-
+    
     opt.gpu_ids = ["0","1","2","3"]
 
     opt.batch_size = len(opt.gpu_ids)

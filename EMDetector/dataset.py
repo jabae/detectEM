@@ -53,7 +53,7 @@ class MultiDataset():
 
 def prep(dtype, data):
 	
-	if dtype in ["image", "mask"]:
+	if dtype in ["image", "mask1", "mask2"]:
 		img = autopad(data.astype(np.float32))
 		
 		if img.max() > 10:
