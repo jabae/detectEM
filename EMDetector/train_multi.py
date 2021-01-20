@@ -190,7 +190,7 @@ if __name__ == "__main__":
     opt.no_eval = True
 
     opt.in_spec = ['image']
-    opt.out_spec = ['mask1, mask2']
+    opt.out_spec = ['mask1', 'mask2']
     opt.train_augment = ['flip','rotate90','contrast','blackpad','darkline','block']
     opt.val_augment = []
 
