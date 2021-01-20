@@ -138,7 +138,7 @@ if __name__ == "__main__":
     		help="Train mask data in h5")
     parser.add_argument("--chkpt_num", required=True, type=int,
         help="Model checkpoint number to start training")
-    parser.add_argment("--pretrain", required=False, type=str, default="",
+    parser.add_argument("--pretrain", required=False, type=str, default=None,
     		help="Pretrained weights (if any)")
     parser.add_argument("--max_epoch", required=False, type=int, default=2000,
     		help="Number of epochs")
@@ -194,8 +194,8 @@ if __name__ == "__main__":
     opt.train_augment = ['flip','rotate90','contrast','blackpad','darkline','block']
     opt.val_augment = []
 
-    if opt.pretrain == "":
-        opt.pretrain = None
+#    if opt.pretrain == "":
+#        opt.pretrain = None
 
     opt.lr = 0.0005
 
