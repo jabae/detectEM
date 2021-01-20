@@ -105,7 +105,7 @@ class UNet(nn.Module):
     def __init__(self):
         super(UNet, self).__init__()
         fs = [16,32,64,128,256]
-        self.conv_in = ConvBlock(2, fs[0])
+        self.conv_in = ConvBlock(1, fs[0])
         self.dconv1 = DownConvBlock(fs[0], fs[1])
         self.dconv2 = DownConvBlock(fs[1], fs[2])
         self.dconv3 = DownConvBlock(fs[2], fs[3])

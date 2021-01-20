@@ -28,7 +28,8 @@ class Dataset(torch.utils.data.Dataset):
         super(Dataset, self).__init__()
 
         self.image = multidataset.image
-        self.mask = multidataset.mask 
+        self.mask1 = multidataset.mask1
+        self.mask2 = multidataset.mask2 
 
         self.mip = mip
         
@@ -43,9 +44,10 @@ class Dataset(torch.utils.data.Dataset):
 
     def __getitem__(self, idx):
         image = self.image[:,:,:,idx]
-        mask = self.mask[:,:,:,idx]
+        mask1 = self.mask1[:,:,:,idx]
+        mask2 = self.mask2[:,:,:,idx]
         
-        sample = {"image": image, "mask": mask}
+        sample = {"image": image, "mask1": mask1, "mask2": mask2}
 
         # Augmentation
         sample = self.augmentor(sample)

@@ -26,7 +26,8 @@ class Model(nn.Module):
         mask = self.model(image)
         
         preds = {}
-        preds["mask"] = mask
+        preds["mask1"] = mask[:,0,:,:]
+        preds["mask2"] = mask[:,1,:,:]
 
         # Loss evaluation
         losses = self.eval_loss(preds, sample)
@@ -39,7 +40,7 @@ class Model(nn.Module):
         ## Discrim
         for k in self.out_spec:
             
-            loss = F.binary_cross_entropy_with_logits(input=preds[k][:,:,32:-32,32:-32], target=sample[k][:,:,32:-32,32:-32])
+            loss = F.binary_cross_entropy_with_logits(input=preds[k][0,0,32:-32,32:-32], target=sample[k][0,0,32:-32,32:-32])
             losses[k] = loss.unsqueeze(0)
             
         return losses

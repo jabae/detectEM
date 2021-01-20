@@ -126,12 +126,16 @@ if __name__ == "__main__":
         help="Train path")
     parser.add_argument("--train_image", required=True, type=str,
         help="Train image data in h5")
-    parser.add_argument("--train_label", required=True, type=str,
+    parser.add_argument("--train_label1", required=True, type=str,
         help="Train mask data in h5")
+    parser.add_argument("--train_label2", required=True, type=str,
+    		help="Train mask data in h5")
     parser.add_argument("--val_image", required=True, type=str,
         help="Validation image data in h5")
     parser.add_argument("--val_label", required=True, type=str,
         help="Validation mask data in h5")
+    parser.add_argument("--val_label2", required=True, type=str,
+    		help="Train mask data in h5")
     parser.add_argument("--chkpt_num", required=True, type=int,
         help="Model checkpoint number to start training")
     parser.add_argment("--pretrain", required=False, type=str, default=None,
@@ -146,14 +150,16 @@ if __name__ == "__main__":
     TRAIN = Dataset(os.path.expanduser(data_dir),
             {
                 "image": opt.train_image,
-                "mask": opt.train_label
+                "mask1": opt.train_label1,
+                "mask2": opt.train_label2
             }
     )
 
     VAL = Dataset(os.path.expanduser(data_dir),
             {
                 "image": opt.val_image,
-                "mask": opt.val_label
+                "mask1": opt.val_label1,
+                "mask2": opt.val_label2
             }
     )
 
@@ -184,7 +190,7 @@ if __name__ == "__main__":
     opt.no_eval = True
 
     opt.in_spec = ['image']
-    opt.out_spec = ['mask']
+    opt.out_spec = ['mask1, mask2']
     opt.train_augment = ['flip','rotate90','contrast','blackpad','darkline','block']
     opt.val_augment = []
     opt.pretrain = opt.pretrain
