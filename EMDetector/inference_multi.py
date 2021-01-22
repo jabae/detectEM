@@ -15,7 +15,7 @@ from dataset import *
 from test.model import Model
 from test.utils import *
 
-from nets.detect_net import *
+from nets.detect_multi_net import *
 
 
 def em_detector(opt):
