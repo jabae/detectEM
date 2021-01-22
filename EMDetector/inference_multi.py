@@ -21,8 +21,8 @@ from nets.detect_net import *
 def em_detector(opt):
 
 	# Output
-	fold_out = np.zeros(opt.patch_size + (opt.n_test,), dtype='uint8')
-
+	mask_stack = np.zeros((2,)+opt.patch_size+(opt.n_test,), dtype='uint8')
+	
 	# Load model
 	model = load_model(opt)
 
@@ -36,9 +36,10 @@ def em_detector(opt):
 		sample = test_loader()
 		pred = forward(model, sample)
 
-		mask = pred["mask"].cpu().detach().numpy()
-		fold_out[:,:,i] = (mask*255).astype('uint8')
-
+		mask1 = pred["mask1"].cpu().detach().numpy()
+		mask2 = pred["mask2"].cpu().detach().numpy()
+		mask_stack[0,:,:,i] = (mask1*255).astype('uint8')
+		mask_stack[1,:,:,i] = (mask2*255).astype('uint8')
 
 		# Stats
 		elapsed = np.round(time.time() - t0, 3)
@@ -46,7 +47,7 @@ def em_detector(opt):
 		if (i+1) % 50 == 0 or (i+1) <=10:
 			print("Iter:  " + str(i+1) + ", elapsed time = " + str(elapsed))
 
-	h5write(opt.fwd_dir + opt.output_file, fold_out)
+	h5write(opt.fwd_dir + opt.output_file, mask_stack)
 
 
 
@@ -83,7 +84,7 @@ if __name__ == "__main__":
 	opt.net = UNet()
 
 	opt.in_spec = ["image"]
-	opt.out_spec = ["mask"]
+	opt.out_spec = ["mask1", "mask2"]
 
 	# GPUs
 	opt.gpu_ids = ["0"]

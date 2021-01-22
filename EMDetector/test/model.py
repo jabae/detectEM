@@ -18,7 +18,8 @@ class Model(nn.Module):
         mask = self.model(sample['image'])
         
         preds = {}
-        preds["mask"] = torch.sigmoid(mask)
+        preds["mask1"] = torch.sigmoid(mask[:,0,:,:].reshape((1,1,)+mask.shape[2:]))
+        preds["mask2"] = torch.sigmoid(mask[:,1,:,:].reshape((1,1,)+mask.shape[2:]))
         
         return preds
 
