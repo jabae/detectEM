@@ -23,7 +23,17 @@ python inference.py --exp_dir /experiment_directory/ --chkpt_num 150000
 Large-scale inference can be done using the [SEAMLeSS](https://github.com/seung-lab/SEAMLeSS) module. \
 Use *alex-emdetector* branch.
 
+- Single-label inference
+```
+python3 run_emdetector.py --model_path ../models/Zetta_RFNet0120/   
+--src_path gs://zetta_aibs_human_unaligned/mip3_stack --dst1_path gs://zetta_aibs_human_unaligned/masks/resin/resin_prelim 
+--dst2_path gs://zetta_aibs_human_unaligned/masks/film/film_prelim --bbox_start 0 0 5100 --bbox_stop 1048576 1048576 5102 
+--bbox_mip 0 --max_mip 8 --mip 6 --chunk_size 2048 2048 --overlap 32 32
+```
 - Multi-label inference
 ```
-python3 run_multi_emdetector.py --model_path ../models/Zetta_RFNet0120/ --src_path gs://zetta_aibs_human_unaligned/mip3_stack --dst1_path gs://zetta_aibs_human_unaligned/masks/resin/resin_prelim --dst2_path gs://zetta_aibs_human_unaligned/masks/film/film_prelim --bbox_start 0 0 5100 --bbox_stop 1048576 1048576 5102 --bbox_mip 0 --max_mip 8 --mip 6 --chunk_size 2048 2048 --overlap 32 32
+python3 run_multi_emdetector.py --model_path ../models/Zetta_RFNet0120/   
+--src_path gs://zetta_aibs_human_unaligned/mip3_stack --dst1_path gs://zetta_aibs_human_unaligned/masks/resin/resin_prelim 
+--dst2_path gs://zetta_aibs_human_unaligned/masks/film/film_prelim --bbox_start 0 0 5100 --bbox_stop 1048576 1048576 5102 
+--bbox_mip 0 --max_mip 8 --mip 6 --chunk_size 2048 2048 --overlap 32 32
 ```
