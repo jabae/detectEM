@@ -1,4 +1,4 @@
-# EMDetect
+# detectEM (Gotta detect'em all)
 
 Deep learning to detect particular features on EM images.  
 1. Defect detection (fold/cracks)
