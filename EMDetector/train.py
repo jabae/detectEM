@@ -2,7 +2,6 @@
 Train fold detector.
 """
 
-import imp
 import os
 import time
 import argparse
