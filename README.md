@@ -1,7 +1,11 @@
 # detectEM (Gotta detect'em all)
 
 Deep learning to detect particular features on EM images.  
-1. Defect detection (fold/cracks)
+1. Defect (fold/crack) detection 
+- Fold  
+![](figures/repo_fold.png)
+- Crack  
+![](figures/repo_crack.png)
 2. Resin detection
 3. Film detection
 
