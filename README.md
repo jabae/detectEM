@@ -3,10 +3,12 @@
 Deep learning to detect particular features on EM images.  
 1. Defect (fold/crack) detection 
 - Fold  
-![](figures/repo_fold.png)
+<img src="figures/repo_fold.png" width="500">
+
 - Crack  
-![](figures/repo_crack.png)
-2. Resin detection
+<img src="figures/repo_crack.png" width="500">
+
+2. Resin detection 
 3. Film detection
 
 
