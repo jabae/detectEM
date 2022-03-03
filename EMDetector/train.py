@@ -188,7 +188,7 @@ if __name__ == "__main__":
 	opt.val_augment = []
 	opt.pretrain = opt.pretrain
 
-	opt.lr = 0.0005
+	opt.lr = 0.0005 # Learning rate
 
 	# GPUs
 	os.environ["CUDA_VISIBLE_DEVICES"] = ','.join(opt.gpu_ids)
