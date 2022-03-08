@@ -11,12 +11,14 @@ class Model(nn.Module):
 	"""
 	
 	def __init__(self, model, opt):
+
 	  super(Model, self).__init__()
 	  self.model = model
 	  self.in_spec = opt.in_spec
 	  self.out_spec = opt.out_spec
 	  self.pretrain = opt.pretrain is not None
 	  self.mip = opt.mip
+	  self.overlap = opt.overlap
 
 	def forward(self, sample):
         
@@ -35,11 +37,14 @@ class Model(nn.Module):
 
 	def eval_loss(self, preds, sample):
 
+		ol = self.overlap
+
 	  losses = dict()
 
 	  for k in self.out_spec:
 	      
-	    loss = F.binary_cross_entropy_with_logits(input=preds[k][0,0,32:-32,32:-32], target=sample[k][0,0,32:-32,32:-32])
+	    loss = F.binary_cross_entropy_with_logits(input=preds[k][0,0,ol//2:-ol//2,ol//2:-ol//2],
+	    																					target=sample[k][0,0,ol//2:-ol//2,ol//2:-ol//2])
 	    losses[k] = loss.unsqueeze(0)
 	    
 	  return losses

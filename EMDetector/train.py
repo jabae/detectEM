@@ -165,6 +165,8 @@ if __name__ == "__main__":
 	opt.mip = 0
 	opt.n_train = opt.train_data.image.shape[-1]
 
+	opt.overlap = 64
+
 	opt.gpu_ids = ["0"]
 
 	opt.batch_size = len(opt.gpu_ids)

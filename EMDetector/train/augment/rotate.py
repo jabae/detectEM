@@ -8,6 +8,7 @@ def rotate_augment(img, labels, mode):
     img: (np array: <z,y,x,ch>) image
     labels: list of (np array: <z,y,x,ch>) labeling of img
   """
+  
   z,y,x,ch = img.shape
   theta = np.random.randint(0, 360)
   img = rotate(img, theta, order=3, mode=mode)
@@ -16,6 +17,7 @@ def rotate_augment(img, labels, mode):
   return img, labels
 
 def rotate(I, theta, order, mode):
+
   z,x,y,ch = I.shape
   for i, slc in enumerate(I):
     for c in range(ch):

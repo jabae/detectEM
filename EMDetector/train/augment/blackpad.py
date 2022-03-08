@@ -8,6 +8,7 @@ def blackpad_augment(sample):
   Args:
     sample: Dictionary of (np array: <ch,z,x,y>) image and mask
   """
+  
   w = sample["image"].shape[1]
   n_pad = np.random.choice(np.arange(int(w*0.4),int(w*0.9),10)) 
   

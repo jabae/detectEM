@@ -6,26 +6,30 @@ import torch.nn.functional as F
 
 
 class Model(nn.Module):
-    """
-    Model wrapper for training.
-    """
-    def __init__(self, model, mip=1):
-        super(Model, self).__init__()
-        self.model = model
+  """
+  Model wrapper for training.
+  """
+  
+  def __init__(self, model):
 
-    def forward(self, sample):
+    super(Model, self).__init__()
+    self.model = model
 
-        mask = self.model(sample['image'])
-        
-        preds = {}
-        preds["mask"] = torch.sigmoid(mask)
-        
-        return preds
+  def forward(self, sample):
 
-    def save(self, fpath):
-        torch.save(self.model.state_dict(), fpath)
+    mask = self.model(sample['image'])
+    
+    preds = {}
+    preds["mask"] = torch.sigmoid(mask)
+    
+    return preds
 
-    def load(self, fpath):
-        state_dict = torch.load(fpath)
-        
-        self.model.load_state_dict(state_dict, strict=False)
+  def save(self, fpath):
+
+    torch.save(self.model.state_dict(), fpath)
+
+  def load(self, fpath):
+
+    state_dict = torch.load(fpath)
+    
+    self.model.load_state_dict(state_dict, strict=False)

@@ -10,6 +10,7 @@ from .block import block_augment
 
 
 class Augmentor:
+	
   def __init__(self, params):
     self.params = params
     self._init_params()
