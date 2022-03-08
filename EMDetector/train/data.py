@@ -18,80 +18,92 @@ downsample_avg = nn.AvgPool2d(kernel_size=(2,2), stride=(2,2), padding=0)
 downsample_max = nn.MaxPool2d(kernel_size=(2,2), stride=(2,2), padding=0)
 
 def worker_init_fn(worker_id):
-    # Each worker already has its own random state (Torch).
-    seed = torch.IntTensor(1).random_()[0]
-    np.random.seed(seed)
+	
+	# Each worker already has its own random state (Torch).
+	seed = torch.IntTensor(1).random_()[0]
+	np.random.seed(seed)
 
         
 class Dataset(torch.utils.data.Dataset):
-    def __init__(self, multidataset, aug_params, mip):
-        super(Dataset, self).__init__()
 
-        self.image = multidataset.image
-        self.mask = multidataset.mask 
+	def __init__(self, multidataset, aug_params, mip):
 
-        self.mip = mip
-        
-        self.size = self.image.shape[3]
+	  super(Dataset, self).__init__()
 
-        augmentor = Augmentor(aug_params)
-        self.augmentor = augmentor
+	  self.image = multidataset.image
+	  self.mask = multidataset.mask 
 
-    def __len__(self):
+	  self.mip = mip
+	  
+	  self.size = self.image.shape[3]
 
-        return self.size
+	  augmentor = Augmentor(aug_params)
+	  self.augmentor = augmentor
 
-    def __getitem__(self, idx):
-        image = self.image[:,:,:,idx]
-        mask = self.mask[:,:,:,idx]
-        
-        sample = {"image": image, "mask": mask}
+  def __len__(self):
 
-        # Augmentation
-        sample = self.augmentor(sample)
-        for k in sample.keys():
-            sample[k] = torch.from_numpy(sample[k].copy())
+	  return self.size
 
-        # for i in range(self.mip):
-        #     sample["image"] = downsample_avg(sample["image"])
-        #     sample["mask"] = downsample_max(sample["mask"])
+  def __getitem__(self, idx):
 
-        return sample
+	  image = self.image[:,:,:,idx]
+	  mask = self.mask[:,:,:,idx]
+	  
+	  sample = {"image": image, "mask": mask}
+
+	  # Augmentation
+	  sample = self.augmentor(sample)
+	  for k in sample.keys():
+	      sample[k] = torch.from_numpy(sample[k].copy())
+
+	  # for i in range(self.mip):
+	  #     sample["image"] = downsample_avg(sample["image"])
+	  #     sample["mask"] = downsample_max(sample["mask"])
+
+	  return sample
 
 
 class Data(object):
-    def __init__(self, data, aug, opt, is_train=True):
-        self.build(data, aug, opt, is_train)
 
-    def __call__(self):
-        sample = next(self.dataiter)
-        for k in sample:
-            is_input = k in self.inputs
-            sample[k].requires_grad_(is_input)
-            sample[k] = sample[k].cuda(non_blocking=(not is_input))
+	def __init__(self, data, aug, opt, is_train=True):
 
-        return sample
+		self.build(data, aug, opt, is_train)
 
-    def requires_grad(self, key):
-        return self.is_train and (key in self.inputs)
+	def __call__(self):
 
-    def build(self, data, aug, opt, is_train):
+	  sample = next(self.dataiter)
+	  for k in sample:
+	    is_input = k in self.inputs
+	    sample[k].requires_grad_(is_input)
+	    sample[k] = sample[k].cuda(non_blocking=(not is_input))
 
-        aug_params = {'flip': False, 'rotate90': False, 'contrast': False, 'blackpad': False, 'darkline': False, 'block': False}
-        for k in aug:
-            aug_params[k] = True
+	  return sample
 
-        dataset = Dataset(data, aug_params, opt.mip)       
+	def requires_grad(self, key):
 
-        dataloader = DataLoader(dataset,
-                                batch_size=opt.batch_size,
-                                shuffle=True,
-                                num_workers=opt.num_workers,
-                                pin_memory=True,
-                                worker_init_fn=worker_init_fn)
+  	return self.is_train and (key in self.inputs)
 
-        # Attributes
-        self.dataiter = iter(dataloader)
-        self.inputs = ['image']
-        self.is_train = is_train
+	def build(self, data, aug, opt, is_train):
 
+    aug_params = {'flip': False,
+    							'rotate90': False,
+    							'contrast': False,
+    							'blackpad': False,
+    							'darkline': False,
+    							'block': False}
+    for k in aug:
+    	aug_params[k] = True
+
+    dataset = Dataset(data, aug_params, opt.mip)       
+
+    dataloader = DataLoader(dataset,
+                            batch_size=opt.batch_size,
+                            shuffle=True,
+                            num_workers=opt.num_workers,
+                            pin_memory=True,
+                            worker_init_fn=worker_init_fn)
+
+    # Attributes
+    self.dataiter = iter(dataloader)
+    self.inputs = ['image']
+    self.is_train = is_train

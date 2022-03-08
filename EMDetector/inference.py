@@ -1,7 +1,6 @@
 """
-Fold detector inference.
+Inference on test volume
 """
-
 
 import time
 import argparse
@@ -10,7 +9,7 @@ from sys import argv
 import numpy as np
 import torch
 
-from dataset import *
+from utils.dataset import *
 
 from test.model import Model
 from test.utils import *
@@ -18,10 +17,11 @@ from test.utils import *
 from nets.detect_net import *
 
 
-def em_detector(opt):
+## Inference
+def detectem(opt):
 
 	# Output
-	fold_out = np.zeros(opt.patch_size + (opt.n_test,), dtype='uint8')
+	detect_out = np.zeros(opt.patch_size + (opt.n_test,), dtype='uint8')
 
 	# Load model
 	model = load_model(opt)
@@ -37,7 +37,7 @@ def em_detector(opt):
 		pred = forward(model, sample)
 
 		mask = pred["mask"].cpu().detach().numpy()
-		fold_out[:,:,i] = (mask*255).astype('uint8')
+		detect_out[:,:,i] = (mask*255).astype('uint8')
 
 
 		# Stats
@@ -46,8 +46,7 @@ def em_detector(opt):
 		if (i+1) % 50 == 0 or (i+1) <=10:
 			print("Iter:  " + str(i+1) + ", elapsed time = " + str(elapsed))
 
-	h5write(opt.fwd_dir + opt.output_file, fold_out)
-
+	h5write(opt.fwd_dir + opt.output_file, detect_out)
 
 
 if __name__ == "__main__":
@@ -73,7 +72,7 @@ if __name__ == "__main__":
 
 	opt.model_dir = opt.exp_dir +'model/'
 	opt.fwd_dir = opt.exp_dir + 'forward/'
-	opt.exp_name = 'EM detector inference'
+	opt.exp_name = 'detectEM inference'
 
 	opt.test_data = TEST
 	opt.mip = 0
@@ -91,8 +90,8 @@ if __name__ == "__main__":
 
 	# Make directories.
 	if not os.path.isdir(opt.fwd_dir):
-	    os.makedirs(opt.fwd_dir)
+    os.makedirs(opt.fwd_dir)
 
 	# Run inference.
 	print("Running inference: {}".format(opt.exp_name))
-	em_detector(opt)
+	detectem(opt)

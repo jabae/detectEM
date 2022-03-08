@@ -41,8 +41,8 @@ class Dataset(torch.utils.data.Dataset):
         sample = {"image": image}
 
         sample["image"] = torch.from_numpy(sample["image"].copy())
-        for i in range(self.mip):
-            sample["image"] = downsample(sample["image"])
+        # for i in range(self.mip):
+        #     sample["image"] = downsample(sample["image"])
             
         return sample
 

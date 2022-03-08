@@ -1,4 +1,7 @@
-# Import necessary packages
+"""
+Helper functions for loading datasets
+"""
+
 import numpy as np
 import h5py
 import random
@@ -32,12 +35,17 @@ def h5write(filename, img):
 
 class Dataset():
 
-	def __init__(self, directory, d):
+	def __init__(self, directory, d, loaded=False):
 		
 		self.directory = directory
 
-		for (label, name) in d.items():
-			setattr(self, label, prep(label, h5read(os.path.join(directory, name))))
+		if loaded:
+			for (label, data) in d.items():
+				setattr(self, label, prep(label, data))
+
+		else:
+			for (label, name) in d.items():
+				setattr(self, label, prep(label, h5read(os.path.join(directory, name))))
 
 
 class MultiDataset():
@@ -73,5 +81,3 @@ def autopad(img):
 
 	else:
 		raise Exception("Autopad not applicable.")
-
-
