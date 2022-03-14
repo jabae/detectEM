@@ -43,9 +43,9 @@ def train(opt):
 
       # Data loaders (Reset every epoch)
 			train_loader = load_data(opt.train_data, opt.train_augment, opt)
-      val_loader = load_data(opt.val_data, opt.val_augment, opt)
+			val_loader = load_data(opt.val_data, opt.val_augment, opt)
 
-      for it in range(chkpt_iter, int(opt.n_train/opt.batch_size)):
+			for it in range(chkpt_iter, int(opt.n_train/opt.batch_size)):
         # Timer
         t0 = time.time()
 
@@ -167,7 +167,7 @@ if __name__ == "__main__":
 
 	opt.overlap = 64
 
-	opt.gpu_ids = ["0"]
+	opt.gpu_ids = ["0","1","2","3"]
 
 	opt.batch_size = len(opt.gpu_ids)
 	opt.num_workers = len(opt.gpu_ids)
@@ -175,7 +175,7 @@ if __name__ == "__main__":
 	opt.net = UNet()
 
 	opt.max_epoch = opt.max_epoch
-	opt.chkpt_intv = 2000
+	opt.chkpt_intv = 1000
 	opt.avgs_intv = 100 
 	opt.imgs_intv = 500
 	opt.warm_up = 100
