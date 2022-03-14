@@ -90,7 +90,7 @@ if __name__ == "__main__":
 
 	# Make directories.
 	if not os.path.isdir(opt.fwd_dir):
-    os.makedirs(opt.fwd_dir)
+		os.makedirs(opt.fwd_dir)
 
 	# Run inference.
 	print("Running inference: {}".format(opt.exp_name))
