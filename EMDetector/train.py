@@ -42,7 +42,7 @@ def train(opt):
 		for epoch in range(chkpt_epoch, opt.max_epoch):
 
       # Data loaders (Reset every epoch)
-      train_loader = load_data(opt.train_data, opt.train_augment, opt)
+			train_loader = load_data(opt.train_data, opt.train_augment, opt)
       val_loader = load_data(opt.val_data, opt.val_augment, opt)
 
       for it in range(chkpt_iter, int(opt.n_train/opt.batch_size)):
