@@ -24,7 +24,7 @@ def chunk_bboxes_3d(vol_size, chunk_size, overlap=(0, 0, 0), offset=None, mip=0)
 		           overlap[2])
 
 		if offset is not None:
-	    offset = (offset[0]//mip_factor,
+			offset = (offset[0]//mip_factor,
 	              offset[1]//mip_factor,
 	              offset[2])
 
