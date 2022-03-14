@@ -57,7 +57,7 @@ def chunk_bboxes_2d(vol_size, chunk_size, overlap=(0, 0), offset=None, mip=0):
 		           overlap[1]//mip_factor)
 
 		if offset is not None:
-	    offset = (offset[0]//mip_factor,
+			offset = (offset[0]//mip_factor,
 	              offset[1]//mip_factor)
 
 	x_bnds = bounds1D_overlap(vol_size[0], chunk_size[0], overlap[0])
@@ -67,7 +67,7 @@ def chunk_bboxes_2d(vol_size, chunk_size, overlap=(0, 0), offset=None, mip=0):
 	          for (xs, ys) in itertools.product(x_bnds, y_bnds)]
 
 	if offset is not None:
-	  bboxes = [(tuple(map(operator.add, bb[0], offset)),
+		bboxes = [(tuple(map(operator.add, bb[0], offset)),
 	             tuple(map(operator.add, bb[1], offset)))
 	            for bb in bboxes]
 
