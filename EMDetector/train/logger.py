@@ -99,28 +99,28 @@ class Logger(object):
 	    tensor = sample[k][0,...]
 	    self.log_image('{}/images/{}'.format(phase, 'truth_mask'), tensor, iter_num)
 	    
-  def log_image(self, tag, tensor, iter_num):
-    assert(torch.is_tensor(tensor))
-    depth = tensor.shape[-3]
-    imgs = [tensor[z,:,:] for z in range(depth)]
-    img = make_grid(imgs, nrow=depth, padding=0)
-    self.writer.add_image(tag, img, iter_num)
+	def log_image(self, tag, tensor, iter_num):
+		assert(torch.is_tensor(tensor))
+		depth = tensor.shape[-3]
+		imgs = [tensor[z,:,:] for z in range(depth)]
+		img = make_grid(imgs, nrow=depth, padding=0)
+		self.writer.add_image(tag, img, iter_num)
 
-  def log_parameters(self, params, log_dir=None):
-    tstamp = self.timestamp()
-    log_dir = self.log_dir if log_dir is None else log_dir
-    params_fname = os.path.join(log_dir, "{}_params.csv".format(tstamp))
-    with open(params_fname,"w+") as f:
-    	for (k,v) in params.items():
-	      f.write("{k}: {v}\n".format(k=k,v=v))
+	def log_parameters(self, params, log_dir=None):
+		tstamp = self.timestamp()
+		log_dir = self.log_dir if log_dir is None else log_dir
+		params_fname = os.path.join(log_dir, "{}_params.csv".format(tstamp))
+		with open(params_fname,"w+") as f:
+			for (k,v) in params.items():
+		    f.write("{k}: {v}\n".format(k=k,v=v))
 
-  def log_command(self, log_dir=None):
-    tstamp = self.timestamp()
-    log_dir = self.log_dir if log_dir is None else log_dir
-    cmd_fname = os.path.join(log_dir, "{}_command".format(tstamp))
-    command = " ".join(sys.argv)
-    with open(cmd_fname, "w+") as f:
-      f.write(command)
+	def log_command(self, log_dir=None):
+		tstamp = self.timestamp()
+		log_dir = self.log_dir if log_dir is None else log_dir
+		cmd_fname = os.path.join(log_dir, "{}_command".format(tstamp))
+		command = " ".join(sys.argv)
+		with open(cmd_fname, "w+") as f:
+		  f.write(command)
 
-  def timestamp(self):
-    return datetime.datetime.now().strftime("%y%m%d_%H%M%S")
+	def timestamp(self):
+		return datetime.datetime.now().strftime("%y%m%d_%H%M%S")
