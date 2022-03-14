@@ -139,20 +139,20 @@ if __name__ == "__main__":
 			help="Number of epochs")
 
 
-  opt = parser.parse_args()
+	opt = parser.parse_args()
 
 	data_dir = ""
 	TRAIN = Dataset(os.path.expanduser(data_dir),
 	  {
-      "image": opt.train_image,
-      "mask": opt.train_label
+	    "image": opt.train_image,
+	    "mask": opt.train_label
 	  }
 	)
 
 	VAL = Dataset(os.path.expanduser(data_dir),
 	  {
-      "image": opt.val_image,
-      "mask": opt.val_label
+	    "image": opt.val_image,
+	    "mask": opt.val_label
 	  }
 	)
 
@@ -197,11 +197,11 @@ if __name__ == "__main__":
 
 	# Make directories.
 	if not os.path.isdir(opt.exp_dir):
-    os.makedirs(opt.exp_dir)
+	  os.makedirs(opt.exp_dir)
 	if not os.path.isdir(opt.log_dir):
-    os.makedirs(opt.log_dir)
+	  os.makedirs(opt.log_dir)
 	if not os.path.isdir(opt.model_dir):
-    os.makedirs(opt.model_dir)
+	  os.makedirs(opt.model_dir)
 
 	# Run experiment.
 	print("Running experiment: {}".format(opt.exp_name))
