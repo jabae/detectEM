@@ -39,27 +39,27 @@ class Model(nn.Module):
 
 		ol = self.overlap
 
-	  losses = dict()
+		losses = dict()
 
-	  for k in self.out_spec:
+		for k in self.out_spec:
 	      
-	    loss = F.binary_cross_entropy_with_logits(input=preds[k][0,0,ol//2:-ol//2,ol//2:-ol//2],
-	    																					target=sample[k][0,0,ol//2:-ol//2,ol//2:-ol//2])
-	    losses[k] = loss.unsqueeze(0)
+		  loss = F.binary_cross_entropy_with_logits(input=preds[k][0,0,ol//2:-ol//2,ol//2:-ol//2],
+		  																					target=sample[k][0,0,ol//2:-ol//2,ol//2:-ol//2])
+		  losses[k] = loss.unsqueeze(0)
 	    
-	  return losses
+		return losses
 
 	def save(self, fpath):
 
-    torch.save(self.model.state_dict(), fpath)
+		torch.save(self.model.state_dict(), fpath)
 
 	def load(self, fpath):
 
-    state_dict = torch.load(fpath)
-    if self.pretrain:
-      model_dict = self.model.state_dict()
-      state_dict = {k:v for k, v in state_dict.items() if k in model_dict}
-      model_dict.update(state_dict)
-      self.model.load_state_dict(model_dict)
-	  else:
-      self.model.load_state_dict(state_dict)
+		state_dict = torch.load(fpath)
+		if self.pretrain:
+		  model_dict = self.model.state_dict()
+		  state_dict = {k:v for k, v in state_dict.items() if k in model_dict}
+		  model_dict.update(state_dict)
+		  self.model.load_state_dict(model_dict)
+		else:
+		  self.model.load_state_dict(state_dict)
