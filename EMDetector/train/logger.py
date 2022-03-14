@@ -56,7 +56,7 @@ class Logger(object):
 	def display(self, phase, iter_num, stats):
 	  disp = "[%s] Iter: %8d, " % (phase, iter_num)
 	  for k, v in stats.items():
-			disp += "%s = %.3f, " % (k, v)
+	  	disp += "%s = %.3f, " % (k, v)
 	  disp += "(lr = %.6f). " % self.lr
 	  print(disp)
 
