@@ -41,7 +41,7 @@ class Dataset(torch.utils.data.Dataset):
 
 		return self.size
 
-  def __getitem__(self, idx):
+	def __getitem__(self, idx):
 
 		image = self.image[:,:,:,idx]
 		mask = self.mask[:,:,:,idx]
