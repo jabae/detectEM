@@ -112,7 +112,7 @@ class Logger(object):
 		params_fname = os.path.join(log_dir, "{}_params.csv".format(tstamp))
 		with open(params_fname,"w+") as f:
 			for (k,v) in params.items():
-		    f.write("{k}: {v}\n".format(k=k,v=v))
+				f.write("{k}: {v}\n".format(k=k,v=v))
 
 	def log_command(self, log_dir=None):
 		tstamp = self.timestamp()
@@ -120,7 +120,7 @@ class Logger(object):
 		cmd_fname = os.path.join(log_dir, "{}_command".format(tstamp))
 		command = " ".join(sys.argv)
 		with open(cmd_fname, "w+") as f:
-		  f.write(command)
+			f.write(command)
 
 	def timestamp(self):
 		return datetime.datetime.now().strftime("%y%m%d_%H%M%S")
