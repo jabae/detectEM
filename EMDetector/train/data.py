@@ -37,23 +37,23 @@ class Dataset(torch.utils.data.Dataset):
 	  augmentor = Augmentor(aug_params)
 	  self.augmentor = augmentor
 
-  def __len__(self):
+	def __len__(self):
 
-	  return self.size
+		return self.size
 
   def __getitem__(self, idx):
 
-	  image = self.image[:,:,:,idx]
-	  mask = self.mask[:,:,:,idx]
-	  
-	  sample = {"image": image, "mask": mask}
+		image = self.image[:,:,:,idx]
+		mask = self.mask[:,:,:,idx]
 
-	  # Augmentation
-	  sample = self.augmentor(sample)
-	  for k in sample.keys():
-	      sample[k] = torch.from_numpy(sample[k].copy())
+		sample = {"image": image, "mask": mask}
 
-	  return sample
+		# Augmentation
+		sample = self.augmentor(sample)
+		for k in sample.keys():
+			sample[k] = torch.from_numpy(sample[k].copy())
+
+		return sample
 
 
 class Data(object):
@@ -64,39 +64,39 @@ class Data(object):
 
 	def __call__(self):
 
-	  sample = next(self.dataiter)
-	  for k in sample:
-	    is_input = k in self.inputs
-	    sample[k].requires_grad_(is_input)
-	    sample[k] = sample[k].cuda(non_blocking=(not is_input))
+		sample = next(self.dataiter)
+		for k in sample:
+			is_input = k in self.inputs
+			sample[k].requires_grad_(is_input)
+			sample[k] = sample[k].cuda(non_blocking=(not is_input))
 
-	  return sample
+		return sample
 
 	def requires_grad(self, key):
 
-  	return self.is_train and (key in self.inputs)
+		return self.is_train and (key in self.inputs)
 
 	def build(self, data, aug, opt, is_train):
 
-    aug_params = {'flip': False,
-    							'rotate90': False,
-    							'contrast': False,
-    							'blackpad': False,
-    							'darkline': False,
-    							'block': False}
-    for k in aug:
-    	aug_params[k] = True
+		aug_params = {'flip': False,
+									'rotate90': False,
+									'contrast': False,
+									'blackpad': False,
+									'darkline': False,
+									'block': False}
+		for k in aug:
+			aug_params[k] = True
 
-    dataset = Dataset(data, aug_params, opt.mip)       
+		dataset = Dataset(data, aug_params, opt.mip)       
 
-    dataloader = DataLoader(dataset,
-                            batch_size=opt.batch_size,
-                            shuffle=True,
-                            num_workers=opt.num_workers,
-                            pin_memory=True,
-                            worker_init_fn=worker_init_fn)
+		dataloader = DataLoader(dataset,
+		                        batch_size=opt.batch_size,
+		                        shuffle=True,
+		                        num_workers=opt.num_workers,
+		                        pin_memory=True,
+		                        worker_init_fn=worker_init_fn)
 
-    # Attributes
-    self.dataiter = iter(dataloader)
-    self.inputs = ['image']
-    self.is_train = is_train
+		# Attributes
+		self.dataiter = iter(dataloader)
+		self.inputs = ['image']
+		self.is_train = is_train
