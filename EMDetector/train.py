@@ -47,46 +47,46 @@ def train(opt):
 
 			for it in range(chkpt_iter, int(opt.n_train/opt.batch_size)):
         # Timer
-        t0 = time.time()
+				t0 = time.time()
 
-        # Load Training samples.
-        sample = train_loader()
+				# Load Training samples.
+				sample = train_loader()
 
-        # Optimizer step
-        optimizer.zero_grad()
-        losses, preds = forward(model, sample, opt)
-        total_loss = sum(losses[k] for k in opt.out_spec)
-        losses["all"] = total_loss/len(opt.out_spec)
-        total_loss.backward()
-        optimizer.step()
+				# Optimizer step
+				optimizer.zero_grad()
+				losses, preds = forward(model, sample, opt)
+				total_loss = sum(losses[k] for k in opt.out_spec)
+				losses["all"] = total_loss/len(opt.out_spec)
+				total_loss.backward()
+				optimizer.step()
 
-        # Elapsed time
-        elapsed = time.time() - t0
-        
-        # Record keeping
-        logger.record('train', losses, elapsed=elapsed)
+				# Elapsed time
+				elapsed = time.time() - t0
 
-        # Log & display averaged stats
-        if (i+1) % opt.avgs_intv == 0 or i < opt.warm_up:
-	        logger.check('train', i+1)
+				# Record keeping
+				logger.record('train', losses, elapsed=elapsed)
 
-        # Logging images
-        if (i+1) % opt.imgs_intv == 0:
-	        logger.log_images('train', i+1, preds, sample)
+				# Log & display averaged stats
+				if (i+1) % opt.avgs_intv == 0 or i < opt.warm_up:
+				  logger.check('train', i+1)
 
-        # Evaluation loop
-        if (i+1) % opt.eval_intv == 0:
-	        eval_loop(i+1, model, val_loader, opt, logger)
-	        val_loader = load_data(opt.val_data, opt.val_augment, opt)
+				# Logging images
+				if (i+1) % opt.imgs_intv == 0:
+				  logger.log_images('train', i+1, preds, sample)
 
-        # Model checkpoint
-        if (i+1) % opt.chkpt_intv == 0:
-	        save_chkpt(model, opt.model_dir, i+1)
+				# Evaluation loop
+				if (i+1) % opt.eval_intv == 0:
+				  eval_loop(i+1, model, val_loader, opt, logger)
+				  val_loader = load_data(opt.val_data, opt.val_augment, opt)
 
-        # Reset timer.
-        t0 = time.time()
+				# Model checkpoint
+				if (i+1) % opt.chkpt_intv == 0:
+				  save_chkpt(model, opt.model_dir, i+1)
 
-        i = i + 1
+				# Reset timer.
+				t0 = time.time()
+
+				i = i + 1
                 
 
 def eval_loop(iter_num, model, data_loader, opt, logger):
