@@ -92,7 +92,9 @@ def bounds1D_overlap(full_width, step_size, overlap=0):
 	  end = start + step_size
 
 	# last window
-	end = full_width
-	bounds.append((start, end))
+	if end>=full_width:
+		start = full_width - step_size
+		end = full_width
+		bounds.append((start, end))
 
 	return bounds
