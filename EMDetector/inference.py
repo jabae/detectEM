@@ -2,6 +2,7 @@
 Inference on test volume
 """
 
+import os
 import time
 import argparse
 from sys import argv
@@ -60,6 +61,8 @@ if __name__ == "__main__":
 		help="Input file to detect folds")
 	parser.add_argument("--output_file", required=True, type=str,
 		help="Output filename")
+	parser.add_argument("--gpu_ids", nargs='+', required=False, type=str,
+		default=["0"], help="GPUs to use")
 
 	opt = parser.parse_args()
 
@@ -70,8 +73,8 @@ if __name__ == "__main__":
 	        }
 	)
 
-	opt.model_dir = opt.exp_dir +'model/'
-	opt.fwd_dir = opt.exp_dir + 'forward/'
+	opt.model_dir = os.path.join(opt.exp_dir, 'model/')
+	opt.fwd_dir = os.path.join(opt.exp_dir, 'forward/')
 	opt.exp_name = 'detectEM inference'
 
 	opt.test_data = TEST
@@ -85,7 +88,7 @@ if __name__ == "__main__":
 	opt.out_spec = ["mask"]
 
 	# GPUs
-	opt.gpu_ids = ["0"]
+	# opt.gpu_ids = ["0"]
 	os.environ['CUDA_VISIBLE_DEVICES'] = ','.join(opt.gpu_ids)
 
 	# Make directories.

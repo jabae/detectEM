@@ -137,6 +137,10 @@ if __name__ == "__main__":
 			help="Pretrained weights (if any)")
 	parser.add_argument("--max_epoch", required=False, type=int, default=2000,
 			help="Number of epochs")
+	parser.add_argument("--overlap", required=False, type=int, default=64,
+			help="Overlap of the patches")
+	parser.add_argument("--gpu_ids", nargs='+', required=False, type=str,
+		default=["0"], help="GPUs to use")
 
 
 	opt = parser.parse_args()
@@ -156,18 +160,16 @@ if __name__ == "__main__":
 	  }
 	)
 
-	opt.log_dir = opt.exp_dir + 'log/'    
-	opt.model_dir = opt.exp_dir + 'model/'
-	opt.exp_name = 'EM detector'
+	opt.log_dir = os.path.join(opt.exp_dir, 'log/')    
+	opt.model_dir = os.path.join(opt.exp_dir, 'model/')
+	opt.exp_name = 'detectEM'
 
 	opt.train_data = TRAIN
 	opt.val_data = VAL
 	opt.mip = 0
 	opt.n_train = opt.train_data.image.shape[-1]
 
-	opt.overlap = 64
-
-	opt.gpu_ids = ["0","1","2","3"]
+	# opt.gpu_ids = ["0","1","2","3"]
 
 	opt.batch_size = len(opt.gpu_ids)
 	opt.num_workers = len(opt.gpu_ids)

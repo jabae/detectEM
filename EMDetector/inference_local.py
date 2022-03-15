@@ -2,7 +2,7 @@
 Run inference on volume locally
 """
 
-
+import os
 import time
 import argparse
 
@@ -94,6 +94,8 @@ if __name__ == "__main__":
 		help="Mip level")
 	parser.add_argument("--res", nargs=3, type=int,
 		help="Resolution of output volume")
+	parser.add_argument("--gpu_ids", nargs='+', required=False, type=str,
+		default=["0"], help="GPUs to use")
 
 
 	opt = parser.parse_args()
@@ -102,14 +104,14 @@ if __name__ == "__main__":
 	res = opt.res
 
 	# Model directory
-	opt.model_dir = opt.exp_dir + 'model/'
+	opt.model_dir = os.path.join(opt.exp_dir, 'model/')
 	opt.net = UNet()
 
 	opt.in_spec = ["image"]
 	opt.out_spec = ["mask"]
 
 	# GPUs
-	opt.gpu_ids = ["9"]
+	# opt.gpu_ids = ["9"]
 	os.environ['CUDA_VISIBLE_DEVICES'] = ','.join(opt.gpu_ids)
 
 	# Sizes
