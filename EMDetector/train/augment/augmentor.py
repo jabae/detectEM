@@ -1,4 +1,8 @@
-"""Provides data augmentation"""
+"""
+Provides data augmentation.
+"""
+
+
 import numpy as np
 
 from .flip import flip_augment
@@ -7,6 +11,7 @@ from .contrast import contrast_augment
 from .blackpad import blackpad_augment
 from .darkline import darkline_augment
 from .block import block_augment
+from .translate import translate_augment
 
 
 class Augmentor:
@@ -16,7 +21,9 @@ class Augmentor:
     self._init_params()
 
   def _init_params(self):
-    augs = ['flip', 'rotate90', 'contrast', 'blackpad', 'darkline', 'block']
+    augs = ['flip', 'rotate90', 'contrast',
+            'blackpad', 'darkline', 'block',
+            'translate']
     for aug in augs:
       if aug not in self.params.keys():
         self.params[aug] = False
@@ -65,6 +72,10 @@ class Augmentor:
     # Block brightness change
     if params['block']:
       sample = block_augment(sample)
+
+    # Block brightness change
+    if params['translate']:
+      sample = translate_augment(sample)
 
 
     # Return

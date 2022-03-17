@@ -83,7 +83,8 @@ class Data(object):
 									'contrast': False,
 									'blackpad': False,
 									'darkline': False,
-									'block': False}
+									'block': False,
+									'translate': False}
 		for k in aug:
 			aug_params[k] = True
 
