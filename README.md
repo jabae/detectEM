@@ -10,16 +10,29 @@ Deep learning to detect particular features on EM images.
 
 2. Resin detection 
 3. Film detection
+4. Mitochondria detection
 
+## Install
+### Create virtual environment
+```
+conda create -n cmito python=3.8
+```
+### Install Cmito
+```
+git clone https://github.com/jabae/Cmito.git
+cd Cmito
+pip install -r requirements.txt
+```
 
-### Train
+## Train
 ```
 python train.py --exp_dir /experiment_directory/ 
 --train_image /train_image.h5 --train_label /train_mask.h5
 --val_image /val_image.h5 --val_label /val_mask.h5 --chkpt_num 0
 ```
 
-### Inference
+## Inference
+### Local inference
 ```
 python inference.py --exp_dir /experiment_directory/ --chkpt_num 150000 
 --input_file test_image.h5 --output_file pred_mask.h5
@@ -44,5 +57,5 @@ python3 run_multi_emdetector.py --model_path ../models/Zetta_RFNet0120/
 --bbox_mip 0 --max_mip 8 --mip 6 --chunk_size 2048 2048 --overlap 32 32
 ```
 
-### References
+## References
 Parts of the codes have been adopted from [DeepEM](https://github.com/seung-lab/DeepEM).
