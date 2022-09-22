@@ -164,5 +164,5 @@ class UNet(nn.Module):
 		
 		for m in conv_modules:
 			n = m.weight.shape[1]*m.weight.shape[2]*m.weight.shape[3]
-			m.weight.data.normal_(0, np.sqrt(2. / n))
+			m.weight.data.normal_(0, np.sqrt(2./n))
 			m.bias.data.zero_()
