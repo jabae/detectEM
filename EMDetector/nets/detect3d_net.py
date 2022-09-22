@@ -114,7 +114,7 @@ class ConvOut(nn.Module):
 
 
 # Network architecture
-class Unet3(nn.Module):
+class UNet(nn.Module):
 
 	def __init__(self):
 
