@@ -77,7 +77,7 @@ def autopad(img):
 		return np.reshape(img, (1,)+img.shape)
 
 	elif len(img.shape) == 4:
-		return np.reshape(img, (1,)+img.shape)
+		return np.reshape(img, img.shape)
 
 	else:
 		raise Exception("Autopad not applicable.")

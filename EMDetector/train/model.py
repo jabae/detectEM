@@ -43,8 +43,8 @@ class Model(nn.Module):
 
 		for k in self.out_spec:
 	      
-		  loss = F.binary_cross_entropy_with_logits(input=preds[k][0,0,ol//2:-ol//2,ol//2:-ol//2],
-		  																					target=sample[k][0,0,ol//2:-ol//2,ol//2:-ol//2])
+		  loss = F.binary_cross_entropy_with_logits(input=preds[k][0,0,0,ol//2:-ol//2,ol//2:-ol//2],
+		  																					target=sample[k][0,0,0,ol//2:-ol//2,ol//2:-ol//2])
 		  losses[k] = loss.unsqueeze(0)
 	    
 		return losses

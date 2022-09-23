@@ -32,7 +32,7 @@ class Dataset(torch.utils.data.Dataset):
 
 	  self.mip = mip
 	  
-	  self.size = self.image.shape[3]
+	  self.size = self.image.shape[4]
 
 	  augmentor = Augmentor(aug_params)
 	  self.augmentor = augmentor
