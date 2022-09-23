@@ -130,7 +130,7 @@ class UNet(nn.Module):
 		self.uconv2 = UpConvBlock3(fs[3], fs[2])
 		self.uconv3 = UpConvBlock3(fs[2], fs[1])
 		self.uconv4 = UpConvBlock3(fs[1], fs[0])
-		self.conv_out = conv3x3(fs[0], 1)
+		self.conv_out = conv3x3x3(fs[0], 1)
 
 		self._initialize_weights()
 

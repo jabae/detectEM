@@ -15,7 +15,7 @@ from train.utils import *
 
 from utils.dataset import *
 
-from nets.detect_net import *
+from nets.detect3d_net import *
 
 
 def train(opt):
@@ -186,7 +186,7 @@ if __name__ == "__main__":
 
 	opt.in_spec = ['image']
 	opt.out_spec = ['mask']
-	opt.train_augment = ['flip','rotate90','contrast']
+	opt.train_augment = []
 	opt.val_augment = []
 	opt.pretrain = opt.pretrain
 
