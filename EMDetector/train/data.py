@@ -43,9 +43,10 @@ class Dataset(torch.utils.data.Dataset):
 
 	def __getitem__(self, idx):
 		
-		print(self.image.shape)
-		image = self.image[:,:,:,:,idx]
-		mask = self.mask[:,:,:,:,idx]
+		image = self.image[:,:,:,idx]
+		mask = self.mask[:,:,:,idx]
+		image = image.reshape((1,)+image.shape)
+		mask = mask.reshape((1,)+image.shape)
 
 		sample = {"image": image, "mask": mask}
 
