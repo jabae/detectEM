@@ -32,7 +32,7 @@ class Dataset(torch.utils.data.Dataset):
 
 	  self.mip = mip
 	  
-	  self.size = self.image.shape[4]
+	  self.size = self.image.shape[3]
 
 	  augmentor = Augmentor(aug_params)
 	  self.augmentor = augmentor
@@ -43,6 +43,7 @@ class Dataset(torch.utils.data.Dataset):
 
 	def __getitem__(self, idx):
 		
+		print(self.image.shape)
 		image = self.image[:,:,:,:,idx]
 		mask = self.mask[:,:,:,:,idx]
 
