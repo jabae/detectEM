@@ -186,7 +186,7 @@ if __name__ == "__main__":
 
 	opt.in_spec = ['image']
 	opt.out_spec = ['mask']
-	opt.train_augment = ["rotate90", "flip", "contrast"]
+	opt.train_augment = ['flip','rotate90','contrast']
 	opt.val_augment = []
 	opt.pretrain = opt.pretrain
 

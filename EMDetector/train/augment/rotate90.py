@@ -15,7 +15,7 @@ def rotate90_augment(sample):
   i = np.random.choice(rotations)
   
   for k in sample.keys():  
-    sample[k] = np.rot90(sample[k], k=i, axes=(1,2))
+    sample[k] = np.rot90(sample[k], k=i, axes=(2,3))
     
     
   return sample

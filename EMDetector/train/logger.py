@@ -102,7 +102,7 @@ class Logger(object):
 	def log_image(self, tag, tensor, iter_num):
 		assert(torch.is_tensor(tensor))
 		depth = tensor.shape[-3]
-		imgs = [tensor[z,:,:] for z in range(depth)]
+		imgs = [tensor[:,z,:,:] for z in range(depth)]
 		img = make_grid(imgs, nrow=depth, padding=0)
 		self.writer.add_image(tag, img, iter_num)
 

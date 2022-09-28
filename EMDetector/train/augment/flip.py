@@ -11,12 +11,12 @@ def flip_augment(sample):
   # z flip
   if np.random.rand() < 0.5:
     for k in sample.keys():
-      sample[k] = np.flip(sample[k], axis=1)
+      sample[k] = np.flip(sample[k], axis=2)
 
   # x flip
   if np.random.rand() < 0.5:
     for k in sample.keys():
-      sample[k] = np.flip(sample[k], axis=2)
+      sample[k] = np.flip(sample[k], axis=3)
 
 
   return sample
