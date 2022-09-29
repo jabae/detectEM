@@ -15,7 +15,7 @@ from utils.dataset import *
 from test.model import Model
 from test.utils import *
 
-from nets.detect_net import *
+from nets.detect3d_net import *
 
 
 ## Inference
@@ -38,7 +38,7 @@ def detectem(opt):
 		pred = forward(model, sample)
 
 		mask = pred["mask"].cpu().detach().numpy()
-		detect_out[:,:,i] = (mask*255).astype('uint8')
+		detect_out[:,:,:,i] = (mask*255).astype('uint8')
 
 
 		# Stats
@@ -79,7 +79,7 @@ if __name__ == "__main__":
 
 	opt.test_data = TEST
 	opt.mip = 0
-	opt.patch_size = opt.test_data.image.shape[1:3]
+	opt.patch_size = opt.test_data.image.shape[0:3]
 	opt.n_test = opt.test_data.image.shape[-1]	
 
 	opt.net = UNet()
@@ -88,7 +88,6 @@ if __name__ == "__main__":
 	opt.out_spec = ["mask"]
 
 	# GPUs
-	# opt.gpu_ids = ["0"]
 	os.environ['CUDA_VISIBLE_DEVICES'] = ','.join(opt.gpu_ids)
 
 	# Make directories.

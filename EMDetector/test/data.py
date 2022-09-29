@@ -37,6 +37,7 @@ class Dataset(torch.utils.data.Dataset):
   def __getitem__(self, idx):
 
     image = self.image[:,:,:,idx]
+    image = image.reshape((1,)+image.shape)
     sample = {"image": image}
 
     return sample
