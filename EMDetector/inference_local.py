@@ -48,14 +48,14 @@ def detect(opt):
 	return detect_out
 
 
-def merge(img_stack, bbox_list, sect_sz, ovlap_sz):
+def merge(img_stack, bbox_list, sect_sz, patch_sz, ovlap_sz):
 
 	img_sect = np.zeros(sect_sz, dtype="uint8")
 
 	for i in range(len(bbox_list)):
 
-		img_patch = img_stack[ovlap_sz[0]//2:-ovlap_sz[0]//2,
-										ovlap_sz[1]//2:-ovlap_sz[1]//2,i]
+		img_patch = img_stack[ovlap_sz[0]//2:ovlap_sz[0]//2+patch_sz[0]-ovlap_sz[0],
+													ovlap_sz[1]//2:ovlap_sz[1]//2+patch_sz[1]-ovlap_sz[1],i]
 
 		b = bbox_list[i]
 
@@ -64,7 +64,7 @@ def merge(img_stack, bbox_list, sect_sz, ovlap_sz):
 		img_patch_new = img_patch*(img_patch>=img_patch_orig) + img_patch_orig*(img_patch<img_patch_orig)
 		
 		img_sect[b[0][0]+ovlap_sz[0]//2:b[1][0]-ovlap_sz[0]//2,
-						b[0][1]+ovlap_sz[1]//2:b[1][1]-ovlap_sz[1]//2] = img_patch_new
+						 b[0][1]+ovlap_sz[1]//2:b[1][1]-ovlap_sz[1]//2] = img_patch_new
 
 
 	return img_sect
@@ -176,7 +176,7 @@ if __name__ == "__main__":
 		# Run inference
 		pred_stack = detect(opt)
 
-		pred_sect = merge(pred_stack, bbox_list, img_sz, ovlap_sz)
+		pred_sect = merge(pred_stack, bbox_list, img_sz, patch_sz, ovlap_sz)
 		dst_vol[:,:,zidx] = pred_sect.reshape(img_sz+(1,))
 
 

@@ -7,6 +7,7 @@ from .contrast import contrast_augment
 from .blackpad import blackpad_augment
 from .darkline import darkline_augment
 from .block import block_augment
+from .noise import noise_augment
 
 
 class Augmentor:
@@ -16,7 +17,7 @@ class Augmentor:
     self._init_params()
 
   def _init_params(self):
-    augs = ['flip', 'rotate90', 'contrast', 'blackpad', 'darkline', 'block']
+    augs = ['flip', 'rotate90', 'contrast', 'blackpad', 'darkline', 'block', 'noise']
     for aug in augs:
       if aug not in self.params.keys():
         self.params[aug] = False
@@ -65,6 +66,10 @@ class Augmentor:
     # Block brightness change
     if params['block']:
       sample = block_augment(sample)
+
+    # Add noise
+    if params['noise']:
+      sample = noise_augment(sample)
 
 
     # Return

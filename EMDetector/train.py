@@ -177,7 +177,7 @@ if __name__ == "__main__":
 	opt.net = UNet()
 
 	opt.max_epoch = opt.max_epoch
-	opt.chkpt_intv = 1000
+	opt.chkpt_intv = 5000
 	opt.avgs_intv = 100 
 	opt.imgs_intv = 500
 	opt.warm_up = 100
@@ -188,7 +188,7 @@ if __name__ == "__main__":
 
 	opt.in_spec = ['image']
 	opt.out_spec = ['mask']
-	opt.train_augment = ['flip','rotate90','contrast']
+	opt.train_augment = ['flip','rotate90','contrast','noise']
 	opt.val_augment = []
 	opt.pretrain = opt.pretrain
 
